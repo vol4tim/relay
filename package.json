@@ -1,0 +1,31 @@
+{
+  "name": "relay",
+  "version": "0.0.0",
+  "description": "Shows how to configure relayed connections",
+  "license": "Apache-2.0 OR MIT",
+  "type": "module",
+  "eslintConfig": {
+    "extends": "ipfs",
+    "parserOptions": {
+      "project": true,
+      "sourceType": "module"
+    }
+  },
+  "scripts": {
+    "start": "node src/relay.js",
+    "privatekey": "node src/generate_privatekey.js",
+    "relay1": "node src/relay.js --config ./config_1.json",
+    "relay2": "node src/relay.js --config ./config_2.json"
+  },
+  "private": true,
+  "dependencies": {
+    "@chainsafe/libp2p-noise": "^15.0.0",
+    "@libp2p/circuit-relay-v2": "^1.0.20",
+    "@libp2p/identify": "^1.0.19",
+    "@libp2p/mdns": "^10.0.20",
+    "@libp2p/mplex": "^10.0.20",
+    "@libp2p/tcp": "^9.0.22",
+    "@libp2p/websockets": "^8.0.20",
+    "libp2p": "^1.4.2"
+  }
+}
