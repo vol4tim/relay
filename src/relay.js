@@ -83,7 +83,8 @@ async function main() {
           defaultDurationLimit: 25 * 60 * 1000
         }
       })
-    }
+    },
+    connectionManager: config.connectionManager || {}
   });
 
   logger(`Node started with id ${node.peerId.toString()}`);
