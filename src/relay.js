@@ -47,6 +47,8 @@ const logger = (...params) => {
   );
 };
 
+const bl = config.bl || [];
+
 async function main() {
   const privateKey = uint8ArrayFromString(config.privateKey, "base64");
   const key = await unmarshalPrivateKey(privateKey);
@@ -68,11 +70,6 @@ async function main() {
         maxMsgSize: 131072 * 100
       })
     ],
-    // peerDiscovery: [
-    //   mdns({
-    //     interval: 20e3
-    //   })
-    // ],
     services: {
       identify: identify(),
       relay: circuitRelayServer({
@@ -83,6 +80,15 @@ async function main() {
           defaultDurationLimit: 25 * 60 * 1000
         }
       })
+    },
+    connectionGater: {
+      denyInboundUpgradedConnection: async peerId => {
+        if (bl.length && bl.includes(peerId.toString())) {
+          console.log("skip black list", peerId.toString());
+          return true;
+        }
+        return false;
+      }
     },
     connectionManager: config.connectionManager || {}
   });
